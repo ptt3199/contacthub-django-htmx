@@ -4,16 +4,23 @@
 
 <div>
     <h1 class="text-4xl text-success mb-4">Contact Manager</h1>
+    <button class="btn btn-primary mb-4" onclick="contact_modal.showModal()">
+      Add New Contact
+    </button>
+    {% include 'partials/add-contact-modal.html' %}
+
     <label class="input input-bordered flex items-center gap-2 mb-2">
         <!-- features:
           - spinner when searching
           - blur the current list when searching -->
+
+        <!-- use the alias of api, not the api itself -->
         <input 
             type="text" 
             class="grow" 
             placeholder="Search" 
             name="search" 
-            hx-get="{% url 'search' %}"
+            hx-get="{% url 'search-contact' %}"
             hx-trigger="keyup delay:500ms"
             hx-target="#contact-list"
             hx-indicator="#spinner"
@@ -35,4 +42,12 @@
     {% include 'partials/contact-list.html' %}
 </div>
 
+<!-- Raise error and open a new modal -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('fail', () => {
+      document.getElementById('contact_modal').showModal();
+    })
+  })
+</script>
 {% endblock %}
