@@ -15,6 +15,9 @@ def index(request):
 def search_contacts(request):
     query = request.GET.get('search', '')
 
+    import time
+    time.sleep(2)
+    
     contacts = request.user.contacts.filter(
         Q(name__icontains=query) | Q(email__icontains=query)
     )
